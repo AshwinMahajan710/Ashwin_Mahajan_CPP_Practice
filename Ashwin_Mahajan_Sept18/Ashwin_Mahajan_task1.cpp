@@ -27,7 +27,7 @@ class VehicleStatus{
 
             // assigning values
             for(int i=0;i<num_wheels;i++){ this->wheel_speed[i] = wheel_speed[i]; }
-            for(int i=0;i<num_wheels;i++){ this->engine_temp[i] = engine_temp[i]; }
+            for(int i=0;i<num_temps;i++){ this->engine_temp[i] = engine_temp[i]; }
         }       
 
         // Getters
