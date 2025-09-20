@@ -1,0 +1,1 @@
+1. Const never used in getting the static variable ex. static size_t getTotalCars() {return totalCars_;}
