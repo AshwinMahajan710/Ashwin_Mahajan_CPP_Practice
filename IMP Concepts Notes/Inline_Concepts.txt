@@ -1,1 +1,33 @@
 1. Const never used in getting the static variable ex. static size_t getTotalCars() {return totalCars_;}
+
+2. While we want to set precision
+    - use 'iomanip'
+    - std::setprecision(1) // considers both left and right decimals ex. 123.34 might get print like 1e^2
+    - std::fixed -> use this before set precision so that we get the fixed numbers before decimal and precision no after decimal ex. std::fixed<<std::setprecision(2)
+    - Another format is scientific ex. 1.23e^2 --> use this 'cout << scientific << setprecision(2) << x << endl';
+
+3. Now when we try to print any pointer address it is by default hexadecimal and hence non understandable. To solve this problem
+    - include<cstdint>
+    - and before printing address use 'uintptr_t' to convert them in decimal ex. uintptr_t(nPtr + 8)
+
+4. Pointer to a function that takes an int and returns an int is written as ---> int (*poly)(int)
+    - Passing a function pointer lets your function call other functions dynamically, without knowing exactly which function it will call at compile time.
+    ex.     
+            int poly1(int x) { return x*x + 2*x + 1; }       // x^2 + 2x + 1
+            int poly2(int x) { return 3*x - 7; }            // 3x - 7
+
+            int evaluate(int x, int (*poly)(int)) {
+            return poly(x); // calls the function passed
+            }
+
+            int main() {
+                int x = 5;S
+                cout << evaluate(x, poly1) << endl; // calls poly1(5)
+                cout << evaluate(x, poly2) << endl; // calls poly2(5)
+            }
+
+5. If wanted to take a random no in c++
+    - include <cstdlib> (for rand() and srand())
+    - include <ctime> for time
+    - firstly set seed to the random time ---> std::srand(std::time(0));
+    - and then easily generate the random no using this ---> std::rand()
