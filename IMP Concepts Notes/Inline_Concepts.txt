@@ -65,3 +65,63 @@
     - This method is useful in such cases """ Quadrilateral quad({3,4,5,6}, {90,90,90,90});"""
 
 9. In c++ angle always calulated ny prebuilt methods in radian degrees=radians×π/180​ this is the formulae for it
+
+10. There are two ways we return the pointer via reference
+    -
+    """
+    // Case 1: pointer itself is const, but value can be modified
+    int* const& func1(int* const& p) {
+        *p = 50;  // ✅ allowed (modify value)
+        // p = nullptr; // ❌ not allowed (cannot change pointer itself)
+        return p;
+    }
+    """
+    -
+    """
+    // Case 2: value is const, but pointer can be modified
+    const int* & func2(const int* & p) {
+        static int x = 100;
+        p = &x;   // ✅ allowed (change pointer)
+        //*p = 200; // ❌ not allowed (value is const)
+        return p;
+    }
+    """
+    - So most of the times we return pointer by second method. By this we can change the pointer but cannot change its values
+
+11. Using friend when we overload << and >> operator. 
+    - ostream is the object of class <iostream>. We cannot call the object of another class in different class as we do not have access to private members. This is th reason to use friend function 
+
+12. In operator overloading
+    - Left-side operators (mutating) → Member functions returning reference.
+    - Right-side operators (non-mutating) → Non-member functions (often friends), returning by value.
+
+13. Operator overloading for ++ operator#include<iostream>
+
+    """
+    class addition{
+        public:
+            int a;
+            addition( ){ a = 10; }
+            void operator ++(){a ++;} // for ++ add
+            void operator ++ (int) {a++;} // for add++
+    };
+
+    int main(){
+        addition add;
+        std::cout<<add.a<<std::endl;
+        ++add;
+        std::cout<<add.a<<std::endl;
+        add++;
+        std::cout<<add.a<<std::endl;
+    }
+    """
+
+14. references must be initialized when the object is constructed.
+    - hence
+    """
+    SimulationEngine::SimulationEngine(ConfigManager& config, FaultLogger* logger){
+        this->config = config;
+        this->logger = logger
+    }
+    """
+    will give error as there is a reference which cannot be changed that is & config . hence use initializer list

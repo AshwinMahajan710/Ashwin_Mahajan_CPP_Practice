@@ -25,7 +25,7 @@ public:
         other.data = nullptr;
         std::cout << "Move constructor called" << std::endl;
     }
-
+    
     Simple(const Simple& other) {
         data = new int (*other.data);
         std::cout << "Copy constructor called" << std::endl;
