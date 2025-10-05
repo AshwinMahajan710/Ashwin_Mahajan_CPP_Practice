@@ -1,7 +1,8 @@
 #include<iostream>
 #include"Ashwin_Mahajan_task4_Simpletron.h"
 #include<cstdlib>
-
+#include<limits>
+#include<climits>
 // Main declarations
 
 const int READ = 10; // read word from keyboard to particular location in memory
@@ -25,17 +26,18 @@ Simpletron:: Simpletron(){
     for(int i=1;i<100;i++){ memory[i] = 0; }
     accumulator = 0;
     program_counter = 0;
+    max_counter = 0;
 }
 
 void Simpletron::loadPrograms(){
     std::cout<<"Enter program instructions one by one (-999999 to terminate): "<<std::endl;
+    max_counter = 0;
     int instruction;
-    int counter = 0;
     while (true){
-        std::cout<<counter<<" ? ";
+        std::cout<<max_counter<<" ? ";
         std::cin>>instruction;
         if(instruction==(-999999)) {break;}
-        memory[counter++] = instruction;
+        memory[max_counter++] = instruction;
     }
 }
 
@@ -141,9 +143,89 @@ void Simpletron::executeOp(){
         }
         
         // condition if program counter goes out of range;
-        if (program_counter < 0 || program_counter >= 100) {
+        if (program_counter < 0 || program_counter >= max_counter) {
             std::cout << "\n*** Program counter out of bounds. Execution terminated. ***" << std::endl;
             return;
         }
     }
+}
+
+// Get sum function
+int Simpletron:: getSum(){
+    int sum = 0;
+    for(int i=0;i<max_counter;i++){
+        int op = memory[i]/100;
+
+        // if any operation code got that means it is not data value
+        if(op == READ || op==WRITE || op == LOAD || op == STORE || op == ADD || op == SUBTRACT || op== DIVIDE || op==MULTIPLY || op==BRANCH || op==BRANCHNEG || op==BRANCHZERO || op==HALT){
+            continue;
+        }
+
+        // As -ve value appeared return the sum and break program
+        else if(memory[i]<0){
+            std::cout<<"Operation Terminated as -ve value appeared..."<<std::endl;
+            return sum;
+        }
+
+        // else add value to sum
+        else{
+            sum += memory[i];
+        }
+    }
+    return sum;
+}
+
+// Get average for seven numbers input
+float Simpletron::getAverage(){
+    float sum = 0;
+    int n_data_vals = 0; // required to calculate no of data vals
+    max_counter = 7;
+    
+    // first store 7 no
+    for(int i=0;i<max_counter;i++){
+        std::cout<<"Enter word "<<i<<": "<<std::endl;
+        std::cin>>memory[i];
+    }
+
+    for(int i=0;i<max_counter;i++){
+        int op = memory[i]/100; // first take the operation code
+
+        // if any operation code got that means it is not data value
+        if(op == READ || op==WRITE || op == LOAD || op == STORE || op == ADD || op == SUBTRACT || op== DIVIDE || op==MULTIPLY || op==BRANCH || op==BRANCHNEG || op==BRANCHZERO || op==HALT){
+            continue;
+        }
+
+        // else add value to sum
+        else{
+            sum += memory[i];
+            n_data_vals++;
+        }
+    }
+    if(n_data_vals==0) {std::cout<<"No data values entered..."<<std::endl; return 0.0;}
+    return (sum/n_data_vals);
+}
+
+// function to get series of numbers and then get largest of them
+int Simpletron::getLargest(){
+    int largest_no = INT_MIN;
+    std::cout<<"Enter no to read(strictly less than 100): "<<std::endl;
+    std::cin>>max_counter;
+    for(int i=0;i<max_counter;i++){
+        std::cout<<"Enter word "<<i<<": "<<std::endl;
+        std::cin>>memory[i];
+    }
+    for(int i=0;i<max_counter;i++){
+        int op = memory[i]/100; // first take the operation code
+
+        // if any operation code got that means it is not data value
+        if(op == READ || op==WRITE || op == LOAD || op == STORE || op == ADD || op == SUBTRACT || op== DIVIDE || op==MULTIPLY || op==BRANCH || op==BRANCHNEG || op==BRANCHZERO || op==HALT){
+            continue;
+        }
+
+        // else add value to sum
+        else{
+            largest_no = (largest_no > memory[i]) ? largest_no : memory[i];
+        }
+    }
+    return largest_no;
 }
