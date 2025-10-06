@@ -1,5 +1,7 @@
 {
     "files.associations": {
+        "compare": "cpp",
+        "type_traits": "cpp",
         "any": "cpp",
         "array": "cpp",
         "atomic": "cpp",
@@ -14,7 +16,6 @@
         "clocale": "cpp",
         "cmath": "cpp",
         "codecvt": "cpp",
-        "compare": "cpp",
         "complex": "cpp",
         "concepts": "cpp",
         "condition_variable": "cpp",
@@ -55,7 +56,6 @@
         "string_view": "cpp",
         "system_error": "cpp",
         "tuple": "cpp",
-        "type_traits": "cpp",
         "utility": "cpp",
         "fstream": "cpp",
         "future": "cpp",
