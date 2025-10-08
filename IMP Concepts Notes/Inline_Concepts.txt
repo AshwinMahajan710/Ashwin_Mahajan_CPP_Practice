@@ -125,3 +125,23 @@
     }
     """
     will give error as there is a reference which cannot be changed that is & config . hence use initializer list
+
+15. There are three places const can appear when dealing with pointers:
+    - To the left of the * → object is constant // ex. const int* p; --> You cannot modify the value being pointed to -> *p = 10; ❌ p = &x; ✅ 
+    - To the right of the * → pointer itself is constant // ex. int* const p = &x; --> pointer itself is const, but the data is not -> *p = 10; ✅ p = &y; ❌
+    - After the function parentheses → this function doesn’t modify the object (the this pointer is const)
+    - Additional (Double Pointer) -> int** p; -> int* const* p;( you can move the outer pointer (p++), but not change where the inner pointers point)
+
+16. That's How custom sorting algo works 
+    
+    """
+    void DiagnosticReport::sortBySeverityDescending(){
+        std::sort(collection.begin(), collection.end(), compareSeverity);
+    }
+
+    bool DiagnosticReport::compareSeverity(const SensorReading& a, const SensorReading& b) const{
+        return a.getSeverity() < b.getSeverity();
+    }
+    """
+
+    - starting_pointer, ending_pointer and function that how to sort 
